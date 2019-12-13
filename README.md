@@ -1,11 +1,11 @@
 # Documentation - Modeling Toolkit
 
-1. 1Background and Introduction
+### 1. Background and Introduction
 
 The Modeling Toolkit is intended to serve as a holistic machine learning solution that integrates both visual analysis and modeling functionalities into one user-friendly app. The provided functionalities should enable a structured procedure for the modelling of facts. Background and main claim of the toolkit is above all the democratisation of machine learning methods by providing an intuitive user interface and should not be confused with
 State-of-the-art procedures in the field of Supervised / Deep Learning compete.
 
-1. 2preliminary considerations
+### 2. Preliminary considerations
 
 Before using the application, the intention and first hypotheses of the modeling should first be considered and formulated. The following questions can be used to support your thoughts:
 
@@ -17,15 +17,14 @@ Before using the application, the intention and first hypotheses of the modeling
 
 These questions will be used to outline a rough business case for modeling. There should be a logical fact for a modelling that promises entrepreneurial added value and can be implemented with realistic resources. These preliminary considerations are decisive to ensure practical modelling and its implementation within the associated organisation.
 
-1. 3APPLICANCE OF THE MODELING TOOLKIT
+### 3. Applicance of the Modeling Toolkit
 
 Basically, the modeling process can be divided into two phases:
 
 - --data exploration phase
 - --data modeling phase
 
-1.
-  1. 3.1 **Explorative data analysis**
+#### 3.1 **Explorative data analysis**
 
 During the exploration phase, potentially suitable explanatory variables for modelling the target variable must be identified and interfering variables eliminated. Furthermore, distributions are to be identified which violate fundamental modeling assumptions and have to be transformed in downstream steps (e.g. variables with &quot;oblique&quot; distribution). Depending on the type of modeling, the individual steps should be weighted differently. Although this function can be basically automated (e.g. via [feature elimination](https://medium.com/@sagar.rawale3/feature-selection-methods-in-machine-learning-eaeef12019cc)), it is recommended to get an &quot;overview&quot; of the data or the distributions and correlations of the underlying variables. The _plotting box_ on the left side of the application is used for this purpose. Two fundamental exploration steps can be carried out within the box:
 
@@ -48,8 +47,7 @@ Using descriptive frequency analysis, a variety of graph types (density plots, b
 
 Within the second tab of the plotting box, the relationships of all variables with metric scale levels are visualized (categorical variables are not included, since no correlation analysis is possible for them). The aim of the correlation analysis is to identify variables with a strong (positive as well as negative) correlation to the target variable and to exclude multicollinear variable pairs (correlation \&gt; 0.75) for further analysis.
 
-1.
-  1. 3.2data cleansing
+### 3.2 Data cleaning
 
 In summary, the exploration phase is intended to provide a holistic understanding of the data in order to make a preliminary selection of suitable modelling variables and estimate necessary pre-processing measures. The next step is to define the necessary transformation steps resulting from the previous data exploration - for example, the treatment of skewness. The following procedures have been integrated within the preprocessing tab for the most frequent transformation requirements:
 
@@ -65,21 +63,20 @@ Since only variables with a metric scale level are permissible for modeling, it 
 | _method_ | _description_ |
 | --- | --- |
 | **one-hot encoding** | Formation of **n** binary variables with n categorical values |
-| **dummy encoding** | Formation of **n-1** binary variables for n categorical expressions (last expression is defined by the non-occurrence of the others)
- |
+| **dummy encoding** | Formation of **n-1** binary variables for n categorical expressions (last expression is defined by the non-occurrence of the others) |
 
 Furthermore, the app provides suitable functions for the professional handling of outliers and missing values. The user can choose between the following treatment options, which are characterized by various advantages and disadvantages depending on the application context:
 
-| **\&lt;** | _scale level_ | _function_ | _description_ |
+|  | _scale level_ | _function_ | _description_ |
 | --- | --- | --- | --- |
-| **Missing values:** | Metric | **delete** | Delete observation with missing values |
+| **Missing values** | Metric | **delete** | Delete observation with missing values |
 |   | Metric | **median** | Replace missing values with the median of the variable |
 |   | Metric | **mean** | Replace missing values with mean value of variabl |
 |   | Discreet | **keep** | Delete observation with missing values |
 |   | Discreet | **fashion** | Replace missing values with variable mode |
 |   | Discreet | **random** | Replace missing values with random values |
 |   |   | ** ** |   |
-| **Outlier:** | Metric | **keep** | No treatment of outliers |
+| **Outlier** | Metric | **keep** | No treatment of outliers |
 |   | Metric | **median** | Replace Outliers with Median |
 |   | Metric | **mean** | Replace outliers with mean value |
 
@@ -91,10 +88,8 @@ which may result in an impairment - if not prevention - of the training process:
 | **multicollinearity** | Strong correlation between predictors |
 | **linear combination** | Predictors represents the linear combination of another predictor. |
 | **Variance homogeneity** | variable has a variance of (nearly) 0 |
-|   |   |
 
-1.
-  1. 3.3Modeling
+#### 3.3 Modeling Process
 
 Once the transformation measures preceding the modelling have been defined, it is necessary to select the modelling algorithm (or algorithms) to be used. In principle, the decision as to how many model types should be trained at the same time is based on a trade-off between performance and computing power. The data size is usually the decisive criterion for weighing up this trade-off. With increasing data volume, the accuracy and generalizability of the model usually increases, but this also increases the time and computing effort per training period. As a rule of thumb, it is recommended to make a selection of 2-3 algorithms based on the table below, which could potentially be successful for the specific problem. For extremely large amounts of data (data sets \&gt; 1 TB) it is recommended to include only one algorithm per training period. The following algorithms are available for the current status:
 
@@ -119,8 +114,7 @@ Another relevant aspect is the &quot;tuning&quot; of hyperparameters - i.e. thos
 | _method_ | _description_ |
 | --- | --- |
 | **Random Hyperparameter Search** | Random selection of parameter values from a defined value range |
-| **Grid Hyperparameter Search** | Determination of specific parameter values
- |
+| **Grid Hyperparameter Search** | Determination of specific parameter values |
 
 If the Random Approach of the Hyperparameter Tuning is selected, the Toolkit sidebar will display sliders for the selection of the parameter ranges to be included. Due to the complexity of these parameters, this should only be considered in specific cases. The third decision component within the training specification is the definition of the Train &amp; Test Set size. This method is based on the common principle within data science practice of dividing the existing data set into two distinctive components. The so-called Train-Set serves to optimize the model. The test set, on the other hand, is a kind of insurance for the practical suitability of the &quot;trained model&quot;. It has not yet been &quot;seen&quot; by the algorithm and therefore reflects good comparability with new data, which will later also be used for classification in practice. The usual ratio of &quot;80% training - 20% testing&quot; is preset as standard within the application and can be adapted at will. Another obvious determinant is the selection of the validation process used in hyperparameter tuning. The current status can be selected from the following validation procedures:
 
@@ -136,8 +130,7 @@ All of the above procedures require the setting of resampling iterations - i.e. 
 
 After cleaning up the data set and selecting the training parameters and algorithms to be integrated, the modelling can be started. Since even small errors can prolong the training duration unplanned, it is advisable to carry out a final sanity check in advance to check the correctness of the parameters. During the training process, a status bar appears at the bottom right, which serves as a rough indication of the progress of the training process. Since unfortunately no more concrete time specification can be represented, it is recommended to carry out iterative modelling periods with increasing complexity (e.g. by more validation steps or inclusion of several algorithms) in order to get a rough feeling for the &quot;expenditure of time&quot;. This ensures that no more time and computing power is invested than is absolutely necessary. If a training process takes an unexpectedly long time, it can usually be stopped by closing the app. In rare cases it can happen that the application is not closed and remains active in the background. It is therefore advisable to check the actual closing of the program in the Task Manager.
 
-1.
-  1. 3.4model evaluation
+#### 3.4 Model evaluation
 
 After the training of the selected model options is completed, you can proceed to the performance analysis. The &quot;Performance Box&quot; in the right part of the dashboard is decisive here.
 The first tab serves as a cross-model overview in which all indicators relevant to the problem are displayed for each algorithm. The &quot;Model Metrics&quot; tab lists more detailed performance information for the individual models, which is explained in more detail below:
@@ -153,8 +146,7 @@ The other two tabs contain indicators for model interpretability. A more detaile
 
 With the exception of the overview tab, the graphics can be viewed for all algorithms included. The selection of the corresponding model is done by the corresponding selection field in the header of the application. In addition to the tab, the performance indicators of the selected model are summarized in the four upper KPI boxes.
 
-1.
-  1. 3.5Model selection and export
+#### 3.5 Model selection and export
 
 The visualized graphics, especially within the &quot;Performance&quot; box, are intended to provide a holistic overview of the quality of the individual model options. The first two tabs and the KPI boxes provide a detailed insight into the forecasting accuracy of the options, whereas the latter tabs provide a deeper insight into the forecasting mechanisms of the model. Together they should form the information foundation for carefully weighing up model interpretability and accuracy within the context of the respective project and selecting a preferred model.
 
@@ -162,7 +154,7 @@ After successful decision making, the Modeling Toolkit offers a wide range of op
 
 Furthermore an automated model report with interactive graphics can be downloaded by clicking the &quot;Download Report&quot; button. The user only has to specify the project name, background and reason for the model decision in the pop-up menu.
 
-1. 4Transferring the Model to the Prediction Toolkit
+### 4. Transferring the Model to the Prediction Toolkit
 
 The transfer to the Prediction Toolkit follows a standardized process, which is listed in more detail below:
 
@@ -173,16 +165,13 @@ The transfer to the Prediction Toolkit follows a standardized process, which is 
 4. Insert the corresponding ZIP file of the exported model Toolkit based on the models into the Template folder.
 5. Now the file can be converted into a Windows installation file. For this the R.file &quot;prediction\_tool\_deployment.R&quot; must be opened. First select lines 1-3 and execute (CTRL + ENTER). The necessary packages are installed and activated. The X-X lines contain important parameters of the installation file, which can be adapted according to the project context (e.g. renaming the application or changing administration authorizations):
 
-
 | **app\_name** | STRING | Name of the Application |
 | --- | --- | --- |
 | **app\_dir** | STRING | Directory of the App Folder
 (Update Accordingly) |
 | **include\_R** | BOOLEAN | Indicate if Installer should contain a version of R
 (Required for all PCs without R installed) |
-| **privilege** | STRING | Setup Installation Requirements
-- &quot;high&quot;: Administration Status required
-- &quot;low&quot;: Everyone can install Application |
+| **privilege** | STRING | Setup Installation Requirements - &quot;high&quot;: Administration Status required - &quot;low&quot;: Everyone can install Application |
 | **default\_dir** | STRING | Default Installation Directory for Application
 (see XXX for further details) |
 | **app\_icon, setup\_icon** | STRING | Name of Application / Setup Icon
@@ -195,7 +184,7 @@ The transfer to the Prediction Toolkit follows a standardized process, which is 
 2. After completion of the process, the app can be installed on all current Windows PCs. The corresponding installation file is located in the subfolder &quot;RInno\_installer&quot;. As previously defined, the license texts and the default installation path should be displayed as expected.
 3. After successful installation the app can be opened.  The first time the application is executed, the loading time may be somewhat delayed due to the one-time loading of packages. However, this should no longer be the case in subsequent use.
 
-1. 5troubleshooting
+### 5. Troubleshooting
 
 In general, the occurrence of errors within the deployment process cannot be completely ruled out, even if the deployment process is carried out according to the instructions. Depending on the source of the error, its correction is trivial or requires special IT prior knowledge. In order to prevent such errors, it is therefore advisable to follow the above instructions as closely as possible.
 
@@ -217,7 +206,7 @@ For further troubleshooting the functionality of the deployment package &quot;RI
 
 The list does not claim to be complete, which means that further, unknown errors may occur in the future. Therefore it is recommended to check the [troubleshooting page of](https://github.com/ficonsulting/RInno/issues) &quot;RInno&quot; or the other &quot;Package&quot; authors if an unknown error occurs and to check for suitable solution options. If you do not find a satisfactory answer here, you should consider reporting the error. This only requires a free registration under Github and a few clicks under the tab &quot;File an Issue&quot;. Authors themselves usually have a great interest in reporting errors and usually react to them very quickly and courteously.
 
-1. 6limitations
+### 6. Limitations
 
 Due to the limited resources, the tool offers additional feature ideas that could not yet be integrated. These are listed below:
 
@@ -227,7 +216,7 @@ Due to the limited resources, the tool offers additional feature ideas that coul
 
 The support of collaborators in the creation of these extended functionalities is expressly desired. Further functionality suggestions can be made on the corresponding Github page.
 
-1. 7Concluding remarks:
+### 7. Concluding remarks:
 
 - The dashboard contains appealing visualizations based on the Highcharts package. Commercial use of this library requires the purchase of a license from the [following link](https://shop.highsoft.com/).
 - Despite careful checking for bugs and unintentional behaviour, there is no guarantee of freedom from errors. It is published under the Github platform and continuously optimized to eliminate sources of errors.
