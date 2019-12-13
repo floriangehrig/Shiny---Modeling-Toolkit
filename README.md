@@ -5,7 +5,7 @@
 Das Modeling Toolkit soll als ganzheitliche Machine Learning Lösung dienen, welche sowohl visuelle Analyse- als auch Modellierungs-Funktionalitäten in einer bedienerfreundlichen App integriert. Die bereitgestellten Funktionalitäten sollen dabei eine strukturierte Vorgehensweise für die Modellierung von Sachverhalten ermöglichen. Hintergrund und Hauptanspruch des Toolkits liegt vor allem in der Demokratisierung von Machine-Learning-Methoden durch Bereitstellung eines intuitiven Benutzeroberfläche und soll nicht mit
 State-of-the-Art Verfahren im Bereich Supervised / Deep Learning konkurrieren.
 
-## 2. Vorabüberlegungen
+### 2. Vorabüberlegungen
 
 Vor Verwendung der Applikation sollten zunächst Absicht und erste Hypothesen der Modellierung bedacht und formuliert werden. Folgende Fragen können hierbei als Gedankenstütze herangezogen werden:
 
@@ -17,15 +17,14 @@ Vor Verwendung der Applikation sollten zunächst Absicht und erste Hypothesen de
 
 Mittels dieser Fragen soll ein grober Business Case für die Modellierung skizziert werden. Es sollte ein logischer Sachverhalt für eine Modellierung bestehen, der unternehmerische Mehrwerte verspricht und mit realistischen Ressourcen umsetzbar ist. Diese Vorüberlegungen sind maßgeblich, um eine praxistaugliche Modellierung und dessen Implementierung innerhalb der zugehörigen Organisation sicherzustellen.
 
-1. 3Nutzung zur Modellierung von zusammenhängen
+### 3. Nutzung zur Modellierung von Zusammenhängen
 
 Grundsätzlich kann der Modellierungsprozess in zwei Phasen aufgeteilt werden:
 
-- --Datenexplorationsphase
-- --Datenmodellierungsphase
+- Datenexplorationsphase
+- Datenmodellierungsphase
 
-1.
-  1. 3.1 **Explorative Datenanalyse**
+#### 3.1 **Explorative Datenanalyse**
 
 Innerhalb der Explorationsphase gilt es potenziell geeignete Erklärvariablen für die Modellierung der Zielvariable zu identifizieren und Störvariablen zu eliminieren. Desweiteren sollen Verteilungen identifiziert werden, die grundsätzliche Modellierungsannahmen verletzen und es in nachgelagerten Schritten zu transformieren gilt (z.B. Variablen mit „schiefer&quot; Verteilung).  Je nach Modellierungstyp sollten die einzelnen Schritte unterschiedlich gewichtet werden. Auch wenn diese Funktion grundsätzlich automatisiert werden kann (z.B. via [Feature Elimination](https://medium.com/@sagar.rawale3/feature-selection-methods-in-machine-learning-eaeef12019cc)), empfiehlt es sich, „einen Überblick&quot; über die Daten bzw. die Verteilungen und Zusammenhänge der zugrundeliegenden Variablen zu gewinnen. Hierzu dient die _Plotting Box_, die sich im linken Bereich der Applikation befindet. Innerhalb der Box können zwei fundamentale Explorationsschritte durchgeführt werden:
 
@@ -35,7 +34,6 @@ Innerhalb der Explorationsphase gilt es potenziell geeignete Erklärvariablen f�
 Mittels deskriptiver Häufigkeitsanalyse können eine Vielzahl von Graph-Typen (Density Plots, Bar Plots, Boxplots, Heatmaps, Scatter Plots) erstellt werden, die zur Analyse der Datenstruktur herangezogen werden können. Ähnlich eines Drag&amp;Drop-Systems können die Variablen bzw. dessen Häufigkeiten an einer X- &amp; Y- Variable angeordnet werden. Mittels einer dritten Grouping Variable können darüber hinaus gezielte Gruppenunterschiede innerhalb der Verteilung festgestellt werden (HINWEIS: Die Grouping Variable muss ein kategoriales Skalenniveau aufweisen). Die folgende Tabelle liefert eine Übersicht der zur Verfügung stehenden Visualisierungsoptionen:
 
 | **Y** | **X** | **Group** | **Plot** |
-| --- | --- | --- | --- |
 | metrisch | - | Nicht vorhanden | Density Plot |
 | metrisch | - | Vorhanden | Grouped Density Plot |
 | metrisch | metrisch | Nicht vorhanden | Scatter Plot |
@@ -48,8 +46,7 @@ Mittels deskriptiver Häufigkeitsanalyse können eine Vielzahl von Graph-Typen (
 
 Innerhalb des zweiten Reiters der Plotting Box sind die Zusammenhänge aller Variablen mit metrischen Skalenniveau visualisiert (kategoriale Variablen sind nicht enthalten, da hierfür keine Korrelationsanalyse möglich ist).  Ziel der Korrelationsanalyse ist es Variablen mit starken (positiven als auch negativen) Zusammenhang zur Zielvariable zu identifizieren sowie multikollineare Variablenpaare (Korrelation \&gt; 0.75) für die weitere Analyse auszuschließen.
 
-1.
-  1. 3.2Datenbereinigung
+#### 3.2Datenbereinigung
 
 Zusammenfassend soll mittels der Explorationsphase ein ganzheitliches Verständnis der Daten gewonnen werden, um eine Vorab-Selektion geeigneter Modellierungsvariablen zu treffen und notwendige Pre-Processing Maßnahmen abzuschätzen. Im nächsten Schritt gilt es notwendige Transformationsschritte festzulegen, die sich aus der vorangegangenen Datenexploration ergeben – beispielsweise der Behandlung von Schiefe. Für die häufigsten Transformationsbedarfe wurden folgende Verfahren innerhalb des Preprocessing-Reiters integriert:
 
