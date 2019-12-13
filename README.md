@@ -1,6 +1,6 @@
 # Documentation - Modeling Toolkit
 
-![screenshot](https://github.com/floriangehrig/Shiny-Modeling-Toolkit/blob/master/Screenshot.PNG)
+![screenshot](https://github.com/floriangehrig/Shiny-Modeling-Toolkit/blob/master/Tutorials/Screenshot.PNG)
 
 ### 1. Background and Introduction
 
