@@ -1,5 +1,7 @@
 # Documentation - Modeling Toolkit
 
+![screenshot](https://github.com/floriangehrig/Shiny-Modeling-Toolkit/blob/master/Screenshot.PNG)
+
 ### 1. Background and Introduction
 
 The Modeling Toolkit is intended to serve as a holistic machine learning solution that integrates both visual analysis and modeling functionalities into one user-friendly app. The provided functionalities should enable a structured procedure for the modelling of facts. Background and main claim of the toolkit is above all the democratisation of machine learning methods by providing an intuitive user interface and should not be confused with
