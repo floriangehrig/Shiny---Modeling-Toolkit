@@ -1,172 +1,167 @@
-# Dokumentation - Modeling Toolkit
+# Documentation - Modeling Toolkit
 
-### 1. Hintergrund und Einleitung
+### 1. Background and Introduction
 
-Das Modeling Toolkit soll als ganzheitliche Machine Learning Lösung dienen, welche sowohl visuelle Analyse- als auch Modellierungs-Funktionalitäten in einer bedienerfreundlichen App integriert. Die bereitgestellten Funktionalitäten sollen dabei eine strukturierte Vorgehensweise für die Modellierung von Sachverhalten ermöglichen. Hintergrund und Hauptanspruch des Toolkits liegt vor allem in der Demokratisierung von Machine-Learning-Methoden durch Bereitstellung eines intuitiven Benutzeroberfläche und soll nicht mit
-State-of-the-Art Verfahren im Bereich Supervised / Deep Learning konkurrieren.
+The Modeling Toolkit is intended to serve as a holistic machine learning solution that integrates both visual analysis and modeling functionalities into one user-friendly app. The provided functionalities should enable a structured procedure for the modelling of facts. Background and main claim of the toolkit is above all the democratisation of machine learning methods by providing an intuitive user interface and should not be confused with
+State-of-the-art procedures in the field of Supervised / Deep Learning compete.
 
-### 2. Vorabüberlegungen
+### 2. Preliminary considerations
 
-Vor Verwendung der Applikation sollten zunächst Absicht und erste Hypothesen der Modellierung bedacht und formuliert werden. Folgende Fragen können hierbei als Gedankenstütze herangezogen werden:
+Before using the application, the intention and first hypotheses of the modeling should first be considered and formulated. The following questions can be used to support your thoughts:
 
-- --Was ist mein Problem bzw. Sachzusammenhang, den ich in ein Modell überführen will?
-- --Welche Indikatoren / Messvariablen ziehe ich generell hierfür in Erwägung? Messe ich mit den Variablen das, was meinem tatsächlichen Sachverhalt hinreichend wiederspiegelt?
-- --Welchen Zweck erfüllt das Modell? Dient es primär der Erklärung / statistischen Validierung des Sachzusammenhangs oder zur Vorhersage neuer Datenpunkte?
-- --Inwieweit sind die ausgewählten Indikatoren messbar? Sind sie hinreichend detailliert, vollständig und häufig dem Anwendungskontext gegenüber erhebbar?
-- --Welche Ressourcen sind mit der Modellierung bzw. dem Aufbau der notw. Dateninfrastruktur verbunden?
+- --What is my problem or context that I want to transform into a model?
+- --Which indicators / measurement variables do I generally consider for this? Do I use the variables to measure what adequately reflects my actual situation?
+- --What is the purpose of the model? Does it primarily serve to explain / statistically validate the factual context or to predict new data points?
+- --To what extent are the selected indicators measurable? Are they sufficiently detailed, complete and often surveyable against the application context?
+- --Which resources are connected with the modelling or the construction of the necessary data infrastructure?
 
-Mittels dieser Fragen soll ein grober Business Case für die Modellierung skizziert werden. Es sollte ein logischer Sachverhalt für eine Modellierung bestehen, der unternehmerische Mehrwerte verspricht und mit realistischen Ressourcen umsetzbar ist. Diese Vorüberlegungen sind maßgeblich, um eine praxistaugliche Modellierung und dessen Implementierung innerhalb der zugehörigen Organisation sicherzustellen.
+These questions will be used to outline a rough business case for modeling. There should be a logical fact for a modelling that promises entrepreneurial added value and can be implemented with realistic resources. These preliminary considerations are decisive to ensure practical modelling and its implementation within the associated organisation.
 
-### 3. Nutzung zur Modellierung von Zusammenhängen
+### 3. Modeling Process
+Basically, the modeling process can be divided into two phases:
 
-Grundsätzlich kann der Modellierungsprozess in zwei Phasen aufgeteilt werden:
+- --data exploration phase
+- --data modeling phase
 
-- Datenexplorationsphase
-- Datenmodellierungsphase
+#### 3.1 **Explorative data analysis**
 
-#### 3.1 **Explorative Datenanalyse**
+During the exploration phase, potentially suitable explanatory variables for modelling the target variable must be identified and interfering variables eliminated. Furthermore, distributions are to be identified which violate fundamental modeling assumptions and have to be transformed in downstream steps (e.g. variables with &quot;oblique&quot; distribution). Depending on the type of modeling, the individual steps should be weighted differently. Although this function can be basically automated (e.g. via [feature elimination](https://medium.com/@sagar.rawale3/feature-selection-methods-in-machine-learning-eaeef12019cc)), it is recommended to get an &quot;overview&quot; of the data or the distributions and correlations of the underlying variables. The _plotting box_ on the left side of the application is used for this purpose. Two fundamental exploration steps can be carried out within the box:
 
-Innerhalb der Explorationsphase gilt es potenziell geeignete Erklärvariablen für die Modellierung der Zielvariable zu identifizieren und Störvariablen zu eliminieren. Desweiteren sollen Verteilungen identifiziert werden, die grundsätzliche Modellierungsannahmen verletzen und es in nachgelagerten Schritten zu transformieren gilt (z.B. Variablen mit „schiefer&quot; Verteilung).  Je nach Modellierungstyp sollten die einzelnen Schritte unterschiedlich gewichtet werden. Auch wenn diese Funktion grundsätzlich automatisiert werden kann (z.B. via [Feature Elimination](https://medium.com/@sagar.rawale3/feature-selection-methods-in-machine-learning-eaeef12019cc)), empfiehlt es sich, „einen Überblick&quot; über die Daten bzw. die Verteilungen und Zusammenhänge der zugrundeliegenden Variablen zu gewinnen. Hierzu dient die _Plotting Box_, die sich im linken Bereich der Applikation befindet. Innerhalb der Box können zwei fundamentale Explorationsschritte durchgeführt werden:
+- Descriptive frequency &amp; context analysis
+- correlation analysis
 
-- --Deskriptive Häufigkeits- &amp; Zusammenhangsanalyse
-- --Korrelationsanalyse
+Using descriptive frequency analysis, a variety of graph types (density plots, bar plots, box plots, heat maps, scatter plots) can be created that can be used to analyze the data structure. Similar to a drag &amp; drop system, the variables or their frequencies can be arranged on an X &amp; Y variable. A third grouping variable can also be used to identify specific group differences within the distribution (NOTE: The grouping variable must have a categorical scale level). The following table provides an overview of the available visualization options:
 
-Mittels deskriptiver Häufigkeitsanalyse können eine Vielzahl von Graph-Typen (Density Plots, Bar Plots, Boxplots, Heatmaps, Scatter Plots) erstellt werden, die zur Analyse der Datenstruktur herangezogen werden können. Ähnlich eines Drag&amp;Drop-Systems können die Variablen bzw. dessen Häufigkeiten an einer X- &amp; Y- Variable angeordnet werden. Mittels einer dritten Grouping Variable können darüber hinaus gezielte Gruppenunterschiede innerhalb der Verteilung festgestellt werden (HINWEIS: Die Grouping Variable muss ein kategoriales Skalenniveau aufweisen). Die folgende Tabelle liefert eine Übersicht der zur Verfügung stehenden Visualisierungsoptionen:
+| **Y** | **X** | **group** | **plot** |
+| --- | --- | --- | --- |
+| metric | - | Not available | Density plot |
+| metric | - | Available | Grouped Density Plot |
+| metric | metric | Not available | Scatter Plot |
+| metric | metric | Available | Grouped Scatter Plot |
+| metric | categorical | Not available | Box Plot |
+| metric | categorical | Available | Grouped Box Plot |
+| categorical | - | Not available | Bar Plot |
+| categorical | - | Available | Grouped Bar Plot |
+| categorical | categorical | Not available | heat map |
 
-| **Y** | **X** | **Group** | **Plot** |
-| metrisch | - | Nicht vorhanden | Density Plot |
-| metrisch | - | Vorhanden | Grouped Density Plot |
-| metrisch | metrisch | Nicht vorhanden | Scatter Plot |
-| metrisch | metrisch | Vorhanden | Grouped Scatter Plot |
-| metrisch | kategorial | Nicht vorhanden | Box Plot |
-| metrisch | kategorial | Vorhanden | Grouped Box Plot |
-| kategorial | - | Nicht vorhanden | Bar Plot |
-| kategorial | - | Vorhanden | Grouped Bar Plot |
-| kategorial | kategorial | Nicht vorhanden | Heatmap |
+Within the second tab of the plotting box, the relationships of all variables with metric scale levels are visualized (categorical variables are not included, since no correlation analysis is possible for them). The aim of the correlation analysis is to identify variables with a strong (positive as well as negative) correlation to the target variable and to exclude multicollinear variable pairs (correlation \&gt; 0.75) for further analysis.
 
-Innerhalb des zweiten Reiters der Plotting Box sind die Zusammenhänge aller Variablen mit metrischen Skalenniveau visualisiert (kategoriale Variablen sind nicht enthalten, da hierfür keine Korrelationsanalyse möglich ist).  Ziel der Korrelationsanalyse ist es Variablen mit starken (positiven als auch negativen) Zusammenhang zur Zielvariable zu identifizieren sowie multikollineare Variablenpaare (Korrelation \&gt; 0.75) für die weitere Analyse auszuschließen.
+#### 3.2 Data cleaning
 
-#### 3.2Datenbereinigung
+In summary, the exploration phase is intended to provide a holistic understanding of the data in order to make a preliminary selection of suitable modelling variables and estimate necessary pre-processing measures. The next step is to define the necessary transformation steps resulting from the previous data exploration - for example, the treatment of skewness. The following procedures have been integrated within the preprocessing tab for the most frequent transformation requirements:
 
-Zusammenfassend soll mittels der Explorationsphase ein ganzheitliches Verständnis der Daten gewonnen werden, um eine Vorab-Selektion geeigneter Modellierungsvariablen zu treffen und notwendige Pre-Processing Maßnahmen abzuschätzen. Im nächsten Schritt gilt es notwendige Transformationsschritte festzulegen, die sich aus der vorangegangenen Datenexploration ergeben – beispielsweise der Behandlung von Schiefe. Für die häufigsten Transformationsbedarfe wurden folgende Verfahren innerhalb des Preprocessing-Reiters integriert:
-
-| **Standardisation** | Skaliert Mittelwert von 0 und Standardabweichung von 1 |
+| **standardisation** | Scaled mean value of 0 and standard deviation of 1 |
 | --- | --- |
-| **Normalisation** | Skaliert Werte zwischen 0 und 1 |
-| **Log-Transformation** | Wendet den natürlichen Logarithmus auf Werte an |
-| **Yeo-Johnson- //
-BoxCox-Transformation** | Verfahren zur Annäherung an eine Normalverteilung
-und Stabilisierung der Varianz |
+| **normalisation** | Scales values between 0 and 1 |
+| **log transformation** | Applies the natural logarithm to values |
+| **Yeo-Johnson- &amp; BoxCox transformation** | Method for approximating a normal distribution and stabilization of variance |
 
-Da nur Variablen mit metrischem Skalenniveau zulässig für eine Modellierung sind, gilt es relevante kategoriale Variablen in ein geeignetes Format zu bringen. Mittels Encoding-Methoden werden diese hierfür in binäre Variablen (0-1) umgewandelt. Folgende Methoden wurden hierbei im Toolkit integriert:
+Since only variables with a metric scale level are permissible for modeling, it is necessary to bring relevant categorical variables into a suitable format. These are converted into binary variables (0-1) using encoding methods. The following methods have been integrated into the toolkit:
 
-| **One-Hot-Encoding** | Bildung von **n** binären Variablen bei n kategoriellen Ausprägungen |
+| **one-hot encoding** | Formation of **n** binary variables with n categorical values |
 | --- | --- |
-| **Dummy-Encoding** | Bildung von **n-1** binären Variablen bei n kategoriellen Ausprägungen
-(letzte Ausprägung wird durch das Nichtauftreten der anderen definiert)
+| **dummy encoding** | Formation of **n-1** binary variables for n categorical expressions (last expression is defined by the non-occurrence of the others)
  |
 
-Weiterhin stellt die App geeignete Funktionen zur fachgemäßen Behandlung von Outliern und fehlenden Werten bereit. Dem Anwender kann zwischen folgenden Behandlungsoptionen auswählen, die je nach Anwendungskontext durch verschiedene Vor- und Nachteile gekennzeichnet sind:
+Furthermore, the app provides suitable functions for the professional handling of outliers and missing values. The user can choose between the following treatment options, which are characterized by various advantages and disadvantages depending on the application context:
 
-|   | _Skalenniveau_ | _Funktion_ | _Beschreibung_
+| ** ** | _scale level_ | _function_ | _Description of the_
  |
 | --- | --- | --- | --- |
-| **Fehlende Werte:** | Metrisch | **Delete** | Beobachtung mit fehlenden Werten löschen |
-|   | Metrisch | **Median** | Ersetzen fehlender Werte mit Median der Variable |
-|   | Metrisch | **Mean** | Ersetzen fehlender Werte mit Mittelwert der Variable |
-|   | Diskret | **Keep** | Beobachtung mit fehlenden Werten löschen |
-|   | Diskret | **Mode** | Ersetzen fehlender Werte mit Modus der Variable |
-|   | Diskret | **Random** | Ersetzen fehlender Werte mit zufälliger Ausprägung |
+| **Missing values:** | Metric | **delete** | Delete observation with missing values |
+|   | Metric | **median** | Replace missing values with the median of the variable |
+|   | Metric | **mean** | Replace missing values with mean value of variable |
+|   | Discreet | **keep** | Delete observation with missing values |
+|   | Discreet | **fashion** | Replace missing values with variable mode |
+|   | Discreet | **random** | Replace missing values with random values |
 |   |   |   |   |
-| **Outlier:** | Metrisch | **Keep** | Keine Behandlung von Outliern |
-|   | Metrisch | **Median** | Ersetzen von Outliern durch Median |
-|   | Metrisch | **Mean** | Ersetzen von Outliern durch Mittelwert |
+| **Outlier:** | Metric | **keep** | No treatment of outliers |
+|   | Metric | **median** | Replace Outliers with Median |
+|   | Metric | **mean** | Replace outliers with mean value |
 
-Nicht zuletzt bietet die Applikation diverse Filter-Funktionen, um Variablen mit Eigenschaften zu entfernen,
-die eine Beeinträchtigung - wenn nicht sogar Verhinderung – des Trainingsprozesses zur Folge haben können:
+Last but not least, the application offers various filter functions to remove variables with properties,
+which may result in an impairment - if not prevention - of the training process:
 
-| **Multikollinearität** | Starke Korrelation zwischen Prädiktoren |
+| **multicollinearity** | Strong correlation between predictors |
 | --- | --- |
-| **Linearkombination** | Prädiktoren stellt Linearkombination eines anderen Prädiktors dar |
-| **Varianzhomogenität** | Variable weist eine Varianz von (nahezu) 0 auf |
+| **linear combination** | Predictors represents the linear combination of another predictor. |
+| **Variance homogeneity** | variable has a variance of (nearly) 0 |
 |   |   |
 
-1.
-  1. 3.3Modellierung
+#### 3.3 Modeling
 
-Nachdem der Modellierung vorangehende Transformationsmaßnahmen definiert wurden, gilt es den zu verwendenden Modellierungsalgorithmus (bzw. -algorithmen) auszuwählen.Grundsätzlich basiert die Entscheidung, wie viele Modelltypen gleichzeitig trainiert werden sollen, auf einem Trade-Off zwischen Performance und Rechenleistung. Dabei ist meist die Datengröße das ausschlaggebende Kriterium für die Abwägung dieses Trade-Offs. Mit zunehmender Datenmenge steigt zwar meist die Genauigkeit bzw. die Generalisierbarkeit des Modells, allerdings steigt hiermit auch die Zeit- &amp; Rechenaufwand pro Trainingsperiode. Als Faustregel empfiehlt es sich auf Basis der unten dargestellten Tabelle eine Auswahl an 2-3 Algorithmen zu treffen, die für die spezifische Problemstellung potenziell erfolgreich sein könnten. Bei extrem großen Datenmengen (Datensätzen \&gt; 1 TB) empfiehlt es sich, lediglich ein Algorithmus pro Trainingsperiode einzubeziehen. Folgende Algorithmen stehen zum aktuellen Stand zur Verfügung:
+Once the transformation measures preceding the modelling have been defined, it is necessary to select the modelling algorithm (or algorithms) to be used. In principle, the decision as to how many model types should be trained at the same time is based on a trade-off between performance and computing power. The data size is usually the decisive criterion for weighing up this trade-off. With increasing data volume, the accuracy and generalizability of the model usually increases, but this also increases the time and computing effort per training period. As a rule of thumb, it is recommended to make a selection of 2-3 algorithms based on the table below, which could potentially be successful for the specific problem. For extremely large amounts of data (data sets \&gt; 1 TB) it is recommended to include only one algorithm per training period. The following algorithms are available for the current status:
 
-| **lm** | Linear Regression Algorithmus | Regression |
+| **lm** | Linear Regression Algorithm | regression |
 | --- | --- | --- |
-| **lda** | Linear Discriminant Analysis | Classification |
-| **ada** | Ada Boosting Algorithmus | Regression, Classification |
-| **rf** | Random Forest Algorithmus | Regression, Classification |
+| **Ida** | Linear Discriminant Analysis | classification |
+| **ada** | Ada Boosting Algorithm | Regression, Classification |
+| **rf** | Random Forest Algorithm | Regression, Classification |
 
-Eine ausführlichere Dokumentation der Algorithmen inklusive ihrer Vor-&amp; Nachteile der verschiedenen Modelle ist unter [folgendem Link](https://topepo.github.io/caret/available-models.html) zu finden. Als „Allrounder&quot; haben sich hierbei sog. Ensemble-Algorithmen (wie rf, ada) bewährt, welche durch eine extrem hohe Flexibilität im Anwendungsbereich bei einer gleichzeitig hohen Genauigkeit gekennzeichnet sind.  Nach abschließender Auswahl der Modellierungsalgorithmen gilt es die Vorgehensweise innerhalb des Trainingsprozesses genauer zu spezifizieren. Ein entscheidender Schritt hierbei ist die Auswahl des Indikators, nach dem das Modell optimiert werden soll. Dabei stehen dem Anwender unterschiedliche Indikatoren pro Problemstellung zur Verfügung:
+A more detailed documentation of the algorithms including their advantages and disadvantages of the different models can be found under [the following link](https://topepo.github.io/caret/available-models.html). So-called ensemble algorithms (such as rf, ada), which are characterized by extremely high flexibility in the area of application and simultaneously high accuracy, have proven themselves as &quot;all-rounders&quot;.  After the final selection of the modeling algorithms, the procedure within the training process must be specified more precisely. A decisive step here is the selection of the indicator according to which the model is to be optimized. Different indicators are available to the user for each problem:
 
-|   | _Problem-Typ_ | _Erläuterung_ |
+|   | _problem type_ | _explanation_ |
 | --- | --- | --- |
-| [**Accuracy**](https://towardsdatascience.com/20-popular-machine-learning-metrics-part-1-classification-regression-evaluation-metrics-1ca3e282a2ce) | Klassifikation | # korrekte Vorhersagen / # Vorhersagen |
-| [**Cohen&#39;s (unweighted) Kappa**](https://thedatascientist.com/performance-measures-cohens-kappa-statistic/) | Klassifikation | Statistik zur Überprüfung d. Interrate-Reliability |
-| [**R²**](https://towardsdatascience.com/statistics-for-machine-learning-r-squared-explained-425ddfebf667) | Regression | Erklärte Varianz / Gesamt-Varianz |
-| [**RMSE (Root mean squared error)**](https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234) | Regression | Standardabweichung der Residuen |
+| [**accuracy**](https://towardsdatascience.com/20-popular-machine-learning-metrics-part-1-classification-regression-evaluation-metrics-1ca3e282a2ce) | classification | # correct predictions / # predictions |
+| [**Cohen&#39;s (unweighted) Kappa**](https://thedatascientist.com/performance-measures-cohens-kappa-statistic/) | classification | Statistics for the Interrate-Reliability Check |
+| [**R²**](https://towardsdatascience.com/statistics-for-machine-learning-r-squared-explained-425ddfebf667) | regression | Declared variance / Total variance |
+| [**RMSE (Root mean squared error)**](https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234) | regression | Standard deviation of residuals |
 
-Ein weiterer, relevanter Aspekt ist das „Tuning&quot; von Hyperparametern – sprich von jenen Parametern, die der Algorithmus nicht selbst optimieren kann und daher vom Menschen ausgewählt werden müssen. In der Praxis hat es sich bewährt, diesen Auswahlprozess einem klassischen Trial-&amp;-Error Ansatzes folgen zu lassen, welcher innerhalb des Trainingsprozesses automatisiert wird. Dabei wurden gängige Verfahren in der App intergiert:
+Another relevant aspect is the &quot;tuning&quot; of hyperparameters - i.e. those parameters that the algorithm cannot optimize itself and therefore have to be selected by humans. In practice, it has been proven that this selection process follows a classic trial &amp; error approach, which is automated within the training process. Common procedures were integrated into the app:
 
-| **Random Hyperparameter Search** | Zufällige Auswahl von Parameterwerten aus einem abgesteckten Wertebereich |
+| **Random Hyperparameter Search** | Random selection of parameter values from a defined value range |
 | --- | --- |
-| **Grid Hyperparameter Search** | Festlegung von spezifischen Parameterwerten
+| **Grid Hyperparameter Search** | Determination of specific parameter values
  |
 
-Sollte sich für die Random-Ansatz des Hyperparameter Tunings ausgewählt werden, erscheinen innerhalb der Toolkit-Sidebar entsprechende Slider zur Auswahl der einzubeziehenden Parameterbereiche. Aufgrund der Komplexität dieser Parameter sollte diese nur in Sonderfällen in Erwägung gezogen werden. Die dritte Entscheidungskomponente innerhalb der Trainings-Spezifizierung ist die Definition der Train &amp; Test-Set Größe. Dieses Verfahren beruht auf dem gängigen Prinzip innerhalb der Data Science Praxis, den vorliegenden Datensatz in zwei distinktive Komponenten zu unterteilen. Das sogenannte Train-Set dient der Optimierung des Modells. Das Test-Set wiederum ist eine Art Versicherung für die Praxistauglichkeit für das „trainierte Modell&quot;. Es wurde vom Algorithmus bislang nicht „gesehen&quot; und spiegelt daher eine gute Vergleichbarkeit zu neuen Daten wider, die später auch in der Praxis zur Klassifikation herangezogen werden sollen. Das übliche Verhältnis von „80% Training - 20% Testing&quot; ist standardgemäß innerhalb der Applikation voreingestellt und kann nach Belieben adaptiert werden. Eine weitere, naheliegende Determinante liegt in der Auswahl des Validierungsprozesses, der im Rahmen des Hyperparameter-Tunings angewendet wird. Zum aktuellen Stand kann aus folgenden Validierungsverfahren ausgewählt werden:
+If the Random Approach of the Hyperparameter Tuning is selected, the Toolkit sidebar will display sliders for the selection of the parameter ranges to be included. Due to the complexity of these parameters, this should only be considered in specific cases. The third decision component within the training specification is the definition of the Train &amp; Test Set size. This method is based on the common principle within data science practice of dividing the existing data set into two distinctive components. The so-called Train-Set serves to optimize the model. The test set, on the other hand, is a kind of insurance for the practical suitability of the &quot;trained model&quot;. It has not yet been &quot;seen&quot; by the algorithm and therefore reflects good comparability with new data, which will later also be used for classification in practice. The usual ratio of &quot;80% training - 20% testing&quot; is preset as standard within the application and can be adapted at will. Another obvious determinant is the selection of the validation process used in hyperparameter tuning. The current status can be selected from the following validation procedures:
 
-| **boot** | Bootstrapping |
+| **boat** | bootstrapping |
 | --- | --- |
 | **cv** | K-Fold Cross Validation |
 | **repeatedcv** | Repeated K-Fold Cross Validation |
 | **LOOCV** | Leave-One-Out Cross Validation |
-| **LGOCV** | Leave-Group-Out Cross Validation |
+| **LGOCV** | Leave Group Out Cross Validation |
 
-Bei allen genannten Verfahren bedarf es einer Einstellung der Resampling-Iterationen – sprich der Anzahl, wie häufig das Ergebnis validiert werden soll. Ähnlich zur Anzahl der einbezogenen Modellalgorithmen vermehrt sich die Kalkulationsdauer mit jeder Validierungsschleife. Die Auswahl sollte daher wohlüberlegt und verhältnismäßig zu der Datengröße bzw. den Genauigkeitsansprüchen des Kunden abgewogen werden. Einzelne Validierungsverfahren bieten darüber hinaus noch granulare Einstellungsmöglichkeiten. Eine ausführliche Erläuterung der Verfahren und ihrer Parameter kann unter [folgendem Link](https://towardsdatascience.com/validating-your-machine-learning-model-25b4c8643fb7) gefunden werden.
+All of the above procedures require the setting of resampling iterations - i.e. the number of times the result is to be validated. Similar to the number of model algorithms included, the calculation time increases with each validation loop. The selection should therefore be carefully considered and weighed in relation to the data size or accuracy requirements of the customer. Individual validation procedures also offer granular setting options. A detailed explanation of the procedures and their parameters can be found at the [following link.](https://towardsdatascience.com/validating-your-machine-learning-model-25b4c8643fb7)
 
-Nach Bereinigung des Datensatzes sowie der Auswahl der Trainingsparameter und einzubindenden Algorithmen kann die Modellierung gestartet werden. Da bereits kleine Fehler die Trainingsdauer ungeplant verlängern können, empfiehlt es sich, vorab einen letzten Sanity Check zur Überprüfung der Richtigkeit der Parameter durchzuführen. Während des Trainingsprozesses erscheint unten rechts ein Status-Balken, der eine grobe Indikation bezüglich der Fortschreitung des Trainingsprozesses dient. Da leider keine konkretere Zeitangabe darstellbar ist, empfiehlt es sich, iterative Modellierungsperioden mit steigender Komplexität (etwa durch mehr Validierungsschritte oder Einbezug mehrerer Algorithmen) durchzuführen, um ein grobes Gefühl für den „Zeitaufwand&quot; zu bekommen. Somit kann sichergestellt werden, dass nicht mehr Zeit und Rechenleistung investiert wird als zwingend notwendig. Sollte ein Trainingsprozess unerwartet lange dauern, lässt sich dieser in der Regel durch Schließung der App abbrechen. In seltenen Fällen kann es dazu kommen, dass die Applikation dadurch nicht geschlossen wird und im Hintergrund weiter aktiv ist. Daher ist es ratsam, die tatsächliche Schließung des Programmes im Task Manager zu überprüfen.
+After cleaning up the data set and selecting the training parameters and algorithms to be integrated, the modelling can be started. Since even small errors can prolong the training duration unplanned, it is advisable to carry out a final sanity check in advance to check the correctness of the parameters. During the training process, a status bar appears at the bottom right, which serves as a rough indication of the progress of the training process. Since unfortunately no more concrete time specification can be represented, it is recommended to carry out iterative modelling periods with increasing complexity (e.g. by more validation steps or inclusion of several algorithms) in order to get a rough feeling for the &quot;expenditure of time&quot;. This ensures that no more time and computing power is invested than is absolutely necessary. If a training process takes an unexpectedly long time, it can usually be stopped by closing the app. In rare cases it can happen that the application is not closed and remains active in the background. It is therefore advisable to check the actual closing of the program in the Task Manager.
 
 1.
-  1. 3.4Modell-Bewertung
+  1. 3.4model evaluation
 
-Nachdem das Training der ausgewählten Modelloptionen abgeschlossen ist, kann zur Performance-Analyse fortgeschritten werden. Hierbei ist die „Performance Box&quot; im rechten Teil des Dashboards entscheidend.
-Der erste Reiter dient als modellübergreifende Übersicht, in dem alle für die Problemstellung relevanten Indikatoren je Algorithmus dargestellt sind. Im Reiter „Model Metrics&quot; sind wiederum genauere Performance-Informationen zu den einzelnen Modellen aufgelistet, welche im Folgenden genauer erläutert werden:
+After the training of the selected model options is completed, you can proceed to the performance analysis. The &quot;Performance Box&quot; in the right part of the dashboard is decisive here.
+The first tab serves as a cross-model overview in which all indicators relevant to the problem are displayed for each algorithm. The &quot;Model Metrics&quot; tab lists more detailed performance information for the individual models, which is explained in more detail below:
 
-|   | _Problem-Typ_ | _Erläuterung_ |
+|   | _problem type_ | _explanation_ |
 | --- | --- | --- |
-| [**Confusion Matrix**](https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234) | Classification | Siehe Link |
-| [**Group-specific Metric Plot**](https://towardsdatascience.com/20-popular-machine-learning-metrics-part-1-classification-regression-evaluation-metrics-1ca3e282a2ce) | Classification | Siehe Link |
-| **Density Comparison Plot** | Regression | Prognostizierte VS Tatsächliche Verteilung |
-| [**Residual Plot**](https://towardsdatascience.com/how-do-you-check-the-quality-of-your-regression-model-in-python-fa61759ff685) | Regression | Siehe Link |
+| [**Confusion Matrix**](https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234) | classification | See link |
+| [**Group-specific Metric Plot**](https://towardsdatascience.com/20-popular-machine-learning-metrics-part-1-classification-regression-evaluation-metrics-1ca3e282a2ce) | classification | See link |
+| **Density Comparison Plot** | regression | Forecasted VS Actual distribution |
+| [**Residual plot**](https://towardsdatascience.com/how-do-you-check-the-quality-of-your-regression-model-in-python-fa61759ff685) | regression | See link |
 
-Die beiden übrigen Reiter enthalten Indikatoren bezüglich der Modell-Interpretierbarkeit. Eine genauere Erläuterung [globaler](https://towardsdatascience.com/hands-on-global-model-interpretation-3bb4264732b5) und [lokaler](https://gilberttanner.com/blog/local-model-interpretation-an-introduction) Interpretationsmethoden von Modellen findet sich unter den angehängten Links. Ein wesentlicher Unterschied zwischen beiden Methoden besteht darin, dass globale Methoden den eingeflossenen Variablen einen allgemeine Bedeutungswert für die Entscheidungsfindung zuschreiben, wohingegen lokale Methoden sich auf die Entscheidungsmechanismen und die Variableneinfluss bei einzelnen Ausprägungen fokussieren. Innerhalb des Reiters „Variable Importance&quot; ist der allgemeine Erklärungsbeitrag der Variable visualisiert, was als globaler Interpretationsindikator in Erwägung gezogen werden kann. Innerhalb des Reiters „SHAPLEY Values&quot; können die Entscheidungsmechanismen des Modells für die ersten 100 Fälle des Test-Sets visualisiert werden. Diese lassen sich aus den dargestellten SHAPLEY-Werten des zu begutachtenden Falles ableiten und dienen als lokaler Interpretationsindikator. Innerhalb von Regressions-Modellen lassen sich diese als (positiver/negativer) Einfluss auf den Wert der Zielvariable interpretieren. Für Klassifikationsmodelle, insbesondere jene mit multinomialer Natur (mehr als 2 zu prognostizierende Kategorien), gilt eine abweichende Interpretation der SHAPLEY-Werte. Hierbei lassen sich diese näherungsweise als  (positiver /negativer) Einfluss auf die Wahrscheinlichkeit der jeweiligen Ausprägung interpretieren und sind daher für jede Klasse einer kategorialen Zielvariable zu begutachten.
+The other two tabs contain indicators for model interpretability. A more detailed explanation of [global](https://towardsdatascience.com/hands-on-global-model-interpretation-3bb4264732b5) and [local](https://gilberttanner.com/blog/local-model-interpretation-an-introduction) interpretation methods of models can be found under the attached links. A major difference between the two methods is that global methods attribute a general significance to the variables used for decision making, whereas local methods focus on the decision-making mechanisms and the influence of variables on individual characteristics. Within the &quot;Variable Importance&quot; tab, the general explanatory contribution of the variable is visualized, which can be considered as a global interpretation indicator. Within the tab &quot;SHAPLEY Values&quot; the decision mechanisms of the model for the first 100 cases of the test set can be visualized. These can be derived from the SHAPLEY values presented for the case under review and serve as a local interpretation indicator. Within regression models, these can be interpreted as a (positive/negative) influence on the value of the target variable. For classification models, especially those with a multinomial nature (more than 2 categories to be predicted), a different interpretation of the SHAPLEY values applies. These can be interpreted approximately as a (positive/negative) influence on the probability of the respective expression and must therefore be assessed for each class of a categorical target variable.
 
-Mit Ausnahme des Übersichts-Reiters lassen sich die  Graphiken für alle einbezogenen Algorithmen begutachten. Die Auswahl des zugehörigen Modells erfolgt hierbei durch das entsprechende Auswahlfeld im Header der Applikation. Neben dem Reiter werden die Performance-Indikatoren des ausgewählten Modells durch die vier oberen KPI-Boxen zusammengefasst.
+With the exception of the overview tab, the graphics can be viewed for all algorithms included. The selection of the corresponding model is done by the corresponding selection field in the header of the application. In addition to the tab, the performance indicators of the selected model are summarized in the four upper KPI boxes.
 
-1.
-  1. 3.5Modell-Auswahl und -Export
+#### 3.5 Model selection and export
 
-Die visualisierten Graphiken, insbesondere innerhalb der „Performance&quot;-Box sollen einen ganzheitlichen Überblick über die Qualität der einzelnen Modell-Optionen vermitteln. Dabei liefern die ersten beiden Reiter sowie die KPI Boxen einen detaillierten Einblick in die Prognosegenauigkeit der Optionen, wohingegen die letzteren Reiter einen tieferen Einblick in die Prognosemechanismen des Modells geben. Sie zusammen sollen das Informationsfundament bilden, um Modell-Interpretierbarkeit und -genauigkeit sorgfältig im Rahmen des jeweiligen Projektkontextes abwägen und ein präferierten Modells auswählen zu können.
+The visualized graphics, especially within the &quot;Performance&quot; box, are intended to provide a holistic overview of the quality of the individual model options. The first two tabs and the KPI boxes provide a detailed insight into the forecasting accuracy of the options, whereas the latter tabs provide a deeper insight into the forecasting mechanisms of the model. Together they should form the information foundation for carefully weighing up model interpretability and accuracy within the context of the respective project and selecting a preferred model.
 
-Nach erfolgreicher Entscheidungsfindung bietet das Modeling Toolkit verschiedenste Möglichkeiten zur praxisbezogenen Weiterverwertung des Modells. So bietet es zum einem die Möglichkeit, das Modell sowie vorangegangene Pre-Processing Schritte durch Klicken des „Download Model&quot;-Buttons in einer .zip-Datei zu exportieren. Dabei werden die Daten in das „.rds&quot; Format transformiert, welches von allen R-Programmen gelesen werden kann. Mittels des zugehörigen Skriptes „XXX.R&quot; können neue Werte problemslos klassifiziert werden. Hierzu gilt es zuvor den Dateipfad zum Modell und Pre-Processing Schritten sowie den neuen Datensatz innerhalb des Skriptes anzupassen. Darüber hinaus besteht die Möglichkeit, das exportierte Modell in ein interaktives „Prediction Tool&quot; einzubetten, welches ähnlich zum Modeling Toolkit selbst eine intuitive Benutzeroberfläche bietet. Das Prediction Tool ermöglicht das Öffnen eines Datensatzes (via Datenbank oder Datei-Upload) und klassifiziert die Daten automatisch mit Hilfe des eingebetteten Modelles. Eine Analyse der Varriablenverteilungen sowie der Prognosemechanismen (via SHAPLEY-Werten) kann unter den entsprechenden Reitern vorgenommen werden. Der Export des prognostizierten Datensatzes innerhalb des Prediction Tools erfolgt via CSV-Export.
+After successful decision making, the Modeling Toolkit offers a wide range of options for the practice-oriented further use of the model. On the one hand it offers the possibility to export the model as well as previous pre-processing steps by clicking the &quot;Download Model&quot; button in a . zip file. The data is transformed into the &quot;.rds&quot; format, which can be read by all R programs. Using the corresponding script &quot;XXX.R&quot; new values can be classified without problems. The file path to the model and pre-processing steps as well as the new data set within the script have to be adjusted beforehand. In addition, it is possible to embed the exported model in an interactive &quot;prediction tool&quot;, which offers an intuitive user interface similar to the Modeling Toolkit itself. The prediction tool allows you to open a data set (via database or file upload) and automatically classify the data using the embedded model. An analysis of the variable distributions as well as the prognosis mechanisms (via SHAPLEY values) can be performed under the corresponding tabs. The export of the predicted data set within the Prediction Tool takes place via CSV export.
 
-Weiterhin kann durch Klicken des „Download Report&quot; Buttons ein automatisierter Modell-Report mit interaktiven Graphiken heruntergeladen werden. Hierbei muss der Anwender unter dem Pop-Up Menü lediglich den Projektnamen, -hintergrund sowie die Begründung für die Modellentscheidung spezifizieren.
+Furthermore an automated model report with interactive graphics can be downloaded by clicking the &quot;Download Report&quot; button. The user only has to specify the project name, background and reason for the model decision in the pop-up menu.
 
-1. 4Überführung des Modells in das Prediction-Toolkit
+### 4. Transferring the Model into the Prediction Toolkit
 
-Die Überführung in das Prediction Toolkits erfolgt nach einem standardisierten Prozess, der im Folgenden genauer aufgelistet ist:
+The transfer to the Prediction Toolkit follows a standardized process, which is listed in more detail below:
 
-1. Kopiere den Template-Ordner und benenne ihn entsprechend des Projektkontextes um
-2. Ändere den konkreten Namen des Toolkits sowie die zugehörige Farbpalette (bestehend aus Hauptfarbe und Sekundärfarben, im HEX-Format) innerhalb der „ui.R&quot;-Datei in den zugehörigen Variablen ab. Da ein Großteil des User Interfaces in der Hauptfarbe gestaltet ist, sollte hierfür eine möglichst assoziationsstarke Farbe – wie etwa die Corporate Color – verwendet werden. Die Sekundärfarben werden innerhalb der Graphen – speziell in der Visualisierung von Gruppen-unterschieden – genutzt und sollten damit hinreichend unterscheidbar sein. Die Anzahl der notwendigen Sekundärfarben richtet sich meist an der kategoriellen Variable mit den meisten Ausprägungen innerhalb des Datensatzes, der zur Modellierung herangezogen wurde. Als grobe Faustregel sollten mindestens 4 unterscheidbare Sekundärfarbe eingesetzt werden.
-3. Sollte ein Logo-Branding gewünscht sein, füge eine entsprechende „logos.png&quot; und „logos.ico&quot; Datei
-in den Subordner „WWW&quot;  des Template-Ordners. Das PNG wird oben rechts innerhalb des Toolkits und als ICO als generelles Logo der Applikation verwendet. Auf der [folgenden Website](https://www.zamzar.com/convert/png-to-ico/) können PNGs einfach in das entsprechende Icon Format konvertiert werden.
-4. Füge die zugehörige ZIP-Datei des exportierten Modells Toolkit beruht auf den Modellen in den Template Ordner ein.
-5. Nun kann das Datei in eine Windows-Installationsdatei überführt werden. Hierzu muss die R.Datei „prediction\_tool\_deployment.R&quot; geöffnet werden.  Zunächst gilt es die Zeilen 1-3 zu markieren und auszuführen (STRG + ENTER). Hierbei werden notwendige Packages installiert und aktiviert. In den Zeilen X-X sind wichtige Parameter der Installationsdatei, die je nach Projektkontext angepasst werden können (z.B. Umbenennen der Applikation oder Änderung der Administrationsbefugnisse):
+1. Copy the template folder and rename it according to the project context
+2. Change the concrete name of the toolkit as well as the corresponding color palette (consisting of main color and secondary colors, in HEX format) within the &quot;ui.R&quot; file in the corresponding variables. Since a large part of the user interface is designed in the main color, a color with as strong an association as possible - such as the corporate color - should be used. The secondary colors are used within the graphs - especially in the visualization of group differences - and should therefore be sufficiently distinguishable. The number of secondary colors required is usually determined by the categorical variable with the most characteristics within the data set used for modeling. As a rough rule of thumb, at least 4 distinguishable secondary colours should be used.
+3. If a logo branding is desired, add a corresponding &quot;logos.png&quot; and &quot;logos.ico&quot; file to
+ the subfolder &quot;WWW&quot; of the template folder. The PNG is used top right within the toolkit and as the ICO as the general logo of the application. On the [following website](https://www.zamzar.com/convert/png-to-ico/) PNGs can easily be converted into the appropriate icon format.
+4. Insert the corresponding ZIP file of the exported model Toolkit based on the models into the Template folder.
+5. Now the file can be converted into a Windows installation file. For this the R.file &quot;prediction\_tool\_deployment.R&quot; must be opened. First select lines 1-3 and execute (CTRL + ENTER). The necessary packages are installed and activated. The X-X lines contain important parameters of the installation file, which can be adapted according to the project context (e.g. renaming the application or changing administration authorizations):
 
 
 | **app\_name** | STRING | Name of the Application |
@@ -176,55 +171,54 @@ in den Subordner „WWW&quot;  des Template-Ordners. Das PNG wird oben rechts in
 | **include\_R** | BOOLEAN | Indicate if Installer should contain a version of R
 (Required for all PCs without R installed) |
 | **privilege** | STRING | Setup Installation Requirements
--  &quot;high&quot;: Administration Status required
+- &quot;high&quot;: Administration Status required
 - &quot;low&quot;: Everyone can install Application |
 | **default\_dir** | STRING | Default Installation Directory for Application
 (see XXX for further details) |
 | **app\_icon,
 setup\_icon** | STRING | Name of Application / Setup Icon
-(suggested to keep naming and overwrite &quot;app\_icon.ico&quot; with a custom icon the main  folder) |
+(suggested to keep naming and overwrite &quot;app\_icon.ico&quot; with a custom icon the main folder) |
 | **pkgs** | VECTOR | List of required packages to launch the App
 (If no major changes to the app are applied, keep the list) |
-| **Electron Dings** |   | VS FIREXFOX ODER CHROME |
+| **electron things** |   | VS FIREXFOX OR CHROME |
 
-1. Nachdem die Parameter für die Applikation angepasst wurden und das Programm „INNO&quot; installiert wurde, kann man durch den Befehl „runApp(…)&quot; sicherstellen, dass die Applikation erwartungsgemäß funktioniert und keine Fehler gemacht wurden. Nach erfolgreicher Prüfung der Applikation, kann schließlich der Befehl „compile\_iss()&quot; ausgeführt werden. Hierdurch wird im ausgewählten Verzeichnis „app\_dir&quot; die Dateien bereitgestellt, die zur Installation der Programmes notwendig sind. Dieser Prozess kann einige Minuten dauern.
-2. Nach Abschluss der Prozesses kann die App auf allen aktuellen Windows PCs installiert werden. Die zugehörige Installations-Datei befindet sich im Sub-Ordner „RInno\_installer&quot;. Wie vorab definiert, sollten die  Lizenztexte sowie der Standard-Installationspfad erwartungsgemäß angezeigt werden.
-3. Nach erfolgreicher Installation kann die App geöffnet werden.  Bei erster Ausführung der Applikation kann sich die Ladezeit aufgrund dem einmaligen Laden von Paketen etwas verzögern. In der Folgenutzung sollte dies aber nicht mehr der Fall sein.
+1. After the parameters for the application have been adjusted and the &quot;INNO&quot; program has been installed, the &quot;runApp(...)&quot; command can be used to ensure that the application functions as expected and that no errors have been made. After successful testing of the application, the command &quot;compile\_iss()&quot; can finally be executed. This provides the files in the selected directory &quot;app\_dir&quot; which are necessary for the installation of the programs. This process may take a few minutes.
+2. After completion of the process, the app can be installed on all current Windows PCs. The corresponding installation file is located in the subfolder &quot;RInno\_installer&quot;. As previously defined, the license texts and the default installation path should be displayed as expected.
+3. After successful installation the app can be opened.  The first time the application is executed, the loading time may be somewhat delayed due to the one-time loading of packages. However, this should no longer be the case in subsequent use.
 
-1. 5Troubleshooting
+### 5. Troubleshooting
 
-Generell kann der Auftritt von Fehlern innerhalb des Deployment-Prozesses auch bei anleitungsgemäßer Erstellung nicht gänzlich ausgeschlossen werden. Je nach Fehlerherkunft ist dessen Behebung trivial oder erfordert spezielles IT-Vorwissen. Zur präventiven Vermeidung solcher Fehler empfiehlt es sich daher, sich an der obenstehenden Anleitung bestmöglich zu orientieren.
+In general, the occurrence of errors within the deployment process cannot be completely ruled out, even if the deployment process is carried out according to the instructions. Depending on the source of the error, its correction is trivial or requires special IT prior knowledge. In order to prevent such errors, it is therefore advisable to follow the above instructions as closely as possible.
 
-Zur Eingrenzung der Fehler sollte zunächst die generelle Funktionsfähigkeit der Applikation mittels des „runApp&quot;- Befehls des Deployment-Skriptes überprüft werden. Sollten hier bereits Fehlermeldung auftreten, scheint bei der Abänderung der App-Parameter ein Fehler passiert zu sein. Typische Fehler in dieser Phase sind:
+In order to limit the errors, the general functionality of the application should first be checked using the &quot;runApp&quot; command of the deployment script. If an error message already appears here, an error seems to have occurred when changing the app parameters. Typical errors in this phase are:
 
-- --Ein Sonderzeichen zu viel / wenig (z.B. . , / ( ) \* # )
-- --Falsche Schreibweise der Farben (siehe folgenden Link für Hexagon Schreibweise)
-- --Falsche Benennung der .ico und .png Dateien
-- --Updates innerhalb der geladenen Packages, die zu einer veränderten Nutzungsweise einzelner Funktionen führen
-- --Sonstige Fehler, die durch aktive Abänderung &amp; Erweiterung des Codes eingingen
+- --One special character too much / too little (e.g. . , / ( ) \* # )
+- --Wrong spelling of colors (see following link for Hexagon spelling)
+- --Wrong naming of . ico and . png files
+- --Updates within the loaded packages that lead to a change in the way individual functions are used.
+- --Other errors received by active modification &amp; extension of the code
 
-Beim Auftreten eines solchen Fehlers sollte zunächst die zugehörige, rot markierte Fehlermeldung innerhalb von R begutachtet werden. Wird daraus die Fehlerquelle nicht unmittelbar erschließbar, empfiehlt es sich, diese im Ganzen oder in Teilen in einer Suchmaschine einzugeben und in Foren nach einer Erläuterung zu suchen. Hierbei haben sich vor allem die Plattformen „Stack Overflow&quot; sowie „Github&quot; bewiesen. Sollte die Applikation normal angezeigt werden, kann die Roh-Applikation bzw. dessen zugrundeliegender Code mit großer Wahrscheinlichkeit als fehlerfrei eingestuft werden.
+If such an error occurs, the associated error message marked in red within R should first be examined. If this does not immediately reveal the source of the error, it is advisable to enter all or part of it in a search engine and search for an explanation in forums. The &quot;Stack Overflow&quot; and &quot;Github&quot; platforms in particular have proved their worth. If the application is displayed normally, the raw application or its underlying code can most likely be classified as error-free.
 
-Zur weiteren Fehlerdiagnose sollte die Funktionalität des Deployment-Packages „RInno&quot; überprüft werden. Es dient dazu, die Roh-Applikation (bestehend aus den zwei .R-Dateien „ui.R&quot; und „server.R&quot;) in einer klassische Installationsdatei zu überführen. Nachstehend sind mögliche Fehlerquellen und Behebungsansätze innerhalb des Deployment-Prozesses aufgelistet:
+For further troubleshooting the functionality of the deployment package &quot;RInno&quot; should be checked. It is used to convert the raw application (consisting of the two .R files &quot;ui.R&quot; and &quot;server.R&quot;) into a classic installation file. Below is a list of possible sources of errors and possible solutions within the deployment process:
 
-- --Inno was not installed (properly) Please deinstall and reinstall the latest Inno Version
-- --Falsche Verzeichnis- und / oder Ordnerangabe
-- --„server.R&quot; oder „ui.R&quot; sind während des Deployment-Prozesses noch geöffnet
-(oder noch im Zwischenspeicher einer RStudio Session gespeichert)
+- --Incorrect directory and / or folder specification
+- --&quot;server.R&quot; or &quot;ui.R&quot; are still open during the deployment process
+ (or still stored in the cache of an RStudio session)
 
-Die Liste erhebt keinen Anspruch auf Vollständigkeit, was bedeutet, dass in Zukunft weitere, unbekannte Fehler auftreten können. Es empfiehlt sich daher bei Auftreten eines unbekannten Fehlers die [Troubleshooting Seite](https://github.com/ficonsulting/RInno/issues) von „RInno&quot; bzw. der anderen „Package&quot;-Urheber zu sichten und nach passenden Lösungsoptionen zu überprüfen. Sollte man hier keine zufriedenstellende Antwort finden, sollte das Melden des Fehlers in Erwägung gezogen werden. Dies erfordert lediglich eine kostenfreie Anmeldung unter Github und wenigen Klicks unter dem Reiter „File an Issue&quot;. Urheber selbst haben meist ein großes Interesse an der Meldung von Fehlern und reagieren auf diese in der Regel sehr schnell und zuvorkommend.
+The list does not claim to be complete, which means that further, unknown errors may occur in the future. Therefore it is recommended to check the [troubleshooting page of](https://github.com/ficonsulting/RInno/issues) &quot;RInno&quot; or the other &quot;Package&quot; authors if an unknown error occurs and to check for suitable solution options. If you do not find a satisfactory answer here, you should consider reporting the error. This only requires a free registration under Github and a few clicks under the tab &quot;File an Issue&quot;. Authors themselves usually have a great interest in reporting errors and usually react to them very quickly and courteously.
 
-1. 6Limitationen
+### 6. Limitations
 
-Aufgrund der bedingten Ressourcen bietet dem Tool zusätzliche Feature-Ideen, die bislang noch nicht integriert werden konnten. Im Folgenden sollen diese aufgelistet werden:
+Due to the limited resources, the tool offers additional feature ideas that could not yet be integrated. These are listed below:
 
-- Leider funktioniert der Ansatz nur für Windows-Betriebssysteme, eine Offline-Lösung für Mac-Betriebssysteme ist zum derzeitigen Stand nicht verfügbar
-- Automatische Feature-Elimination: Slider, um beim Modellierungen eine Variablenauswahl via Recursive Feature Elimination vorzunehmen. Entsprechend müssten Validierungsoptionen ähnlich zur Hyperparameterauswahl zur Verfügung gestellt werden.
-- Datenbank-Überschreibung: Möglichkeit, die prognostizierten Werte im Prediction Tool direkt in eine Datenbank zu schreiben.
+- Unfortunately, the approach only works for Windows operating systems, an offline solution for Mac operating systems is not available at this time.
+- Automatic Feature Elimination: Slider to make a variable selection during modeling via Recursive Feature Elimination. Accordingly, validation options similar to the hyper parameter selection would have to be provided.
+- Database override: Possibility to write the predicted values directly into a database in the Prediction Tool.
 
-Die Unterstützung von Kollaboratoren bei Erstellung dieser erweiterten Funktionalitäten ist ausdrücklich erwünscht. Weitere Funktionalitäts-Vorschläge können auf der zugehörigen Github-Page getätigt werden.
+The support of collaborators in the creation of these extended functionalities is expressly desired. Further functionality suggestions can be made on the corresponding Github page.
 
-1. 7Abschließende Hinweise:
+### 7. Concluding remarks
 
-- Das Dashboard enthält ansprechende Visualisierungen, die auf dem Highcharts-Package beruhen. Eine kommerzielle Nutzung dieser Library erfordert den Kauf einer Lizenz unter dem [folgenden Link](https://shop.highsoft.com/).
-- Trotz sorgfältiger Prüfung nach Bugs und ungewollten Verhalten besteht keine Garantie auf Fehlerfreiheit. Zur Bereinigung von Fehlerquellen wird es unter der Plattform Github veröffentlicht und kontinuierlich optimiert.
+- The dashboard contains appealing visualizations based on the Highcharts package. Commercial use of this library requires the purchase of a license from the [following link](https://shop.highsoft.com/).
+- Despite careful checking for bugs and unintentional behaviour, there is no guarantee of freedom from errors. It is published under the Github platform and continuously optimized to eliminate sources of errors.
