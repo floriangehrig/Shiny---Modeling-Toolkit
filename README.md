@@ -65,12 +65,11 @@ Since only variables with a metric scale level are permissible for modeling, it 
 
 Furthermore, the app provides suitable functions for the professional handling of outliers and missing values. The user can choose between the following treatment options, which are characterized by various advantages and disadvantages depending on the application context:
 
-| ** ** | _scale level_ | _function_ | _Description of the_
- |
+| ** ** | _scale level_ | _function_ | _Description of the_ |
 | --- | --- | --- | --- |
 | **Missing values:** | Metric | **delete** | Delete observation with missing values |
 |   | Metric | **median** | Replace missing values with the median of the variable |
-|   | Metric | **mean** | Replace missing values with mean value of variable |
+|   | Metric | **mean** | Replace missing values with mean value of variabl |
 |   | Discreet | **keep** | Delete observation with missing values |
 |   | Discreet | **fashion** | Replace missing values with variable mode |
 |   | Discreet | **random** | Replace missing values with random values |
