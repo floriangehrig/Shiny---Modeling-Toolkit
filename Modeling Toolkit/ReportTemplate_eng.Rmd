@@ -1,0 +1,349 @@
+---
+title: ""
+output:
+  html_document:
+    theme: cosmo
+params: 
+  project_name: NA
+  project_background: NA
+  decision_comment: NA
+  n_rows: NA
+  n_cols: NA
+  n_numeric: NA
+  n_categorical: NA
+  data_structure_numeric: NA
+  data_structure_integer: NA
+  data_structure_factor: NA
+  eda_plots: NA
+  correlation_plot: NA
+  mcf: NA
+  mcf_rate: NA
+  nvz: NA
+  lcf: NA
+  stand_vars: NA
+  norm_vars: NA
+  trans_vars: NA
+  trans_method: NA
+  categorical_vars: NA
+  encoding_method: NA
+  na_imputation_method_num: NA
+  na_imputation_method_cat: NA
+  outlier_sd_range: NA
+  outlier_imputation_method: NA
+  data_structure_numeric_clean: NA
+  data_structure_integer_clean: NA
+  data_structure_factor_clean: NA
+  target_variable: NA
+  variable_names: NA
+  considered_models: NA
+  algorithm_names: NA
+  holdout_ratio: NA
+  hp_search_method: NA
+  hp_validation_method: NA
+  hp_validation_times: NA 
+  var_validation_method: NA
+  var_validation_times: NA 
+  rfe_value: NA
+  evaluation_criteria: NA
+  model_highest: NA
+  value_highest: NA
+  model_final: NA
+  final_kpi1_name: NA
+  final_kpi1_value: NA
+  final_kpi2_name: NA
+  final_kpi2_value: NA
+  comparison_plot1: NA
+  comparison_plot2: NA
+  model_plots1: NA
+  model_plots2: NA
+  importance_plots: NA
+  shapley_plots1: NA
+  shapley_plots2: NA
+  shapley_case1: NA
+  shapley_case2: NA
+---
+
+## `r params$project_name ` - Modeling Report
+
+*** 
+
+### <b> 1. Background </b>
+
+`r params$project_background`
+
+&nbsp;
+
+### <b> 2. Dataset </b>
+
+The data set consists of <b> `r params$n_rows` observations </b> and <b> `r params$n_cols` variables </b>. In total, <b> `r params$n_numeric` variables </b> have a <b> metric scale level </b>. <b> `r params$n_categorical` Variables </b> are characterized by a <b> categorical scale level </b>.
+
+## {.tabset .tabset-fade}
+
+### Numerical Variables
+
+```{r, results='asis',echo=FALSE}
+params$data_structure_numeric%>% 
+  knitr::kable()  %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "200px")
+
+```
+
+### Integer Variables
+
+```{r, results='asis',echo=FALSE}
+params$data_structure_integer %>% 
+  knitr::kable()  %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "200px")
+
+```
+
+### Factor Variables
+
+```{r, results='asis',echo=FALSE}
+params$data_structure_factor%>% 
+  knitr::kable()  %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "200px")
+
+```
+
+##
+
+&nbsp;
+
+### <b> 3. Data Pre-Processing </b>
+
+In the next step, methods were applied to bring the data set into a suitable format for the intended modelling.
+
+---
+
+#### 3.1 Explorative Data Analysis
+
+A comprehensive, <b> explorative data analysis </b> was carried out to decide on necessary preprocessing measures. The primary objective of this analysis was to illuminate the relationships between the <b> target variable `r params$target_variable` </b> and other variable in the dataset. The following figure serves as an illustrative excerpt of the analysis, visualizing the <b> correlation matrix </b> of all metric variables and the target variable:
+
+```{r, results='asis', echo=FALSE}
+
+print(tagList(params$correlation_plot))
+
+```
+
+#### 3.2 Variable Transformation
+
+On the basis of the findings, <b> variables </b> had been eliminated for which <b> no sufficient explanatory contribution </b> could be assumed. In addition, to ensure model quality, variables were removed that were characterized by the following properties:
+
+`r ifelse(params$mcf == TRUE, paste("- [x] Aufweisen einer Korrelation >=", params$mcf_rate, "mit einer anderen Variablen"),"XXX")`
+`r ifelse(params$lcf == TRUE,"- [x] Abbildung einer Linearkombination ander Variablen","XXX")`
+`r ifelse(params$nvz == TRUE,"- [x] Aufweisen einer Varianzstreuung von (nahezu) 0","XXX")`
+
+The exclusion served the preventive <b> avoidance of falsifications and disturbances </b> within the modelling, which could result from the inclusion of variables with corresponding properties. The following variables were included for the further procedure:
+
+##  {.tabset .tabset-pills}
+
+```{r, results='asis', echo=FALSE}
+
+for(y in 1:length(params$eda_plots)){
+  library(shiny)
+  cat("###", as.character(params$variable_names[y]), '<br>', '\n')
+  
+  print(tagList(params$eda_plots[[y]]))
+  
+  cat('\n', '<br>', '\n\n')
+  
+}
+  
+
+```
+
+#
+
+<div style="margin-top: -4em">
+
+Due to the different scales of the metric variables included, the following <b> transformation procedures </b> were applied:
+
+`r ifelse(length(params$stand_vars) > 0, paste("[x] <b> Standardisierung </b> von <i> ",paste(params$stand_vars, collapse =", ")," </i>"), "")`
+`r ifelse(length(params$norm_vars) > 0, paste("[x] <b> Normalisierung </b> von <i> ",paste(params$norm_vars, collapse =", ")," </i>"), "")`
+`r ifelse(length(params$trans_vars) > 0, paste("[x] <b> ",params$trans_method,"-Transformation </b> von <i> ",paste(params$trans_vars, collapse =", ")," </i>"), "")`
+
+Included, <b> categorical variables </b> `r ifelse(length(params$categorical_vars)>0, paste("- <i> ",params$categorical_vars," </i> -"),""")` were in turn converted using the <b> `r params$encoding_method` encoding</b> approach to <b> binary variables </b>. Missing <b> metric data points </b> were `r ifelse(params$na_imputation_method_num != "Delete", paste("replaced by the <b> ", params$na_imputation_method_num, " </b>"), "removed")` and <b> categorial data points </b> `r ifelse(params$na_imputation_method_cat != "Delete", paste("by the <b> ", params$na_imputation_method_cat, " </b> replaced"), "removed")`. `r ifelse(params$outlier_imputation_method != "Keep", paste("Furthermore, for all variables included, a professional <b> treatment of 'outliers' </b> was undertaken. All values with a distance of more than 1.5 interquartile distances to the 25% or 75% quartile were replaced by the corresponding <b> ", params$outlier_imputation_method, "</b>."),"")`. 
+
+</div>
+
+---
+
+The following table shows the essential properties of the data set after the defined preprocessing measures have been carried out:
+
+## {.tabset .tabset-fade}
+
+### Numerical Variables
+
+```{r, results='asis',echo=FALSE}
+params$data_structure_numeric_clean%>% 
+  knitr::kable()  %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "200px")
+
+```
+
+### Integer Variables
+
+```{r, results='asis',echo=FALSE}
+params$data_structure_integer_clean %>% 
+  knitr::kable()  %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "200px")
+
+```
+
+### Factor Variables
+
+```{r, results='asis',echo=FALSE}
+params$data_structure_factor_clean%>% 
+  knitr::kable()  %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), fixed_thead = T) %>%
+  kableExtra::scroll_box(height = "200px")
+
+```
+
+##
+
+&nbsp;
+
+
+### <b> 4. Modeling </b>
+
+The adjusted data set was subsequently transferred into a <b> structured training pipeline </b> in which various modelling options were simulated and evaluated. For later evaluation of model quality and stability, <b> `r params$holdout_ratio` % </b> of the data set was defined as <b> holdout set </b>, which was excluded from the training process. Furthermore, <b> validation loops </b> were integrated within the pipeline for <b> variable and hyperparameter selection </b>.
+---
+
+#### 4.1 Modeling Approach
+
+The following algorithms were considered on the basis of the requirement horizon resulting from the question.
+ 
+```{r, echo=FALSE, results="asis"}
+for (i in 1:length(params$considered_models)) {
+  cat("- ",params$algorithm_names[[i]], '<br>', '\n')
+}
+```
+
+The <b> `r params$hp_search_method` principle </b> was used to select the associated <b> hyperparameters </b>, in which the modeling quality for a number of `r ifelse(params$hp_search_method=="grid", "predefined", "randomly selected")` parameter combinations is evaluated one after the other. The <b> hyper parameter combinations </b> was optimized by a <b>`r as.character(params$hp_validation_times)`-fold `r toupper(params$hp_validation_method) `-validation </b> within the <i> internal validation loop </i>. <!-- Parallel to this, different combinations of the explanatory variables were tested within the <i> external validation loop </i> using <b> `r params$var_validation_times`-fold `params$var_validation_method` </b>. The optimization was done by <i> 'Recursive Feature Elimination' </i> procedure with a <b> RFE value </b> of <b> `params$rfe_value` </b>. -->
+
+&nbsp;
+
+### <b> 5. Model Evaluation </b>
+
+Both <b> accuracy criteria </b> and <b> interpetibility criteria </b> were considered for the selection of the model to be <b> preferred </b>. 
+
+----
+
+#### 5.1 Model Performance 
+
+The performance of all models included was assessed using the indicator <b> "`r params$evaluation_criteria`" </b>. The following figure shows the <b> dispersion of the performance values </b> within the validation loops for each algorithm. With a <b> `r params$evaluation_criteria` </b> of <b> `r params$value_highest` </b> the algorithm <b> "`r params$model_highest`" </b> has the highest average forecasting power.
+
+<div class="row">
+  <div class="col-md-6" markdown="1">
+  `r params$comparison_plot1`
+  </div>
+  <div class="col-md-6" markdown="1">
+  `r params$comparison_plot2`
+  </div>
+</div>
+
+<div style="margin-top: -2em">
+In order to obtain a holistic picture of the algorithm performance, the <b> distributions of the predicted values </b> were also considered. The following figures show these and the <b> residuals to the actual values </b> for the algorithms used: 
+</div>
+
+## {.tabset .tabset-pills}
+
+```{r, results='asis', echo=FALSE}
+
+if (length(params$model_plots1)==1) {
+  
+     tagList(column(width=6,params$model_plots1[[1]]),column(width=6,params$model_plots2[[1]]))
+  
+  } else {
+  
+  for(h in 1:length(params$model_plots1)){
+  library(shiny)
+  cat("###", as.character(params$algorithm_names[[h]]), '<br>', '\n')
+  print(tagList(column(width=6,params$model_plots1[[h]]),column(width=6,params$model_plots2[[h]])))
+  cat('\n', '<br>', '\n\n')
+}
+  
+}
+
+```
+
+##
+
+&nbsp;
+
+<div style="margin-top: -3em">
+----
+
+</div>
+
+
+#### 5.2 Model Interpretability
+
+After evaluation of the performance, all trained models were evaluated with regard to <b> traceability and plausibility </b> of their prognosis. As a first indicator, the <b> general explanatory contribution </b> of the included predictors was examined. The following figure visualizes the <b> relative significance of the variables </b> included for each algorithm at an aggregated level: 
+
+## {.tabset .tabset-pills}
+
+```{r, results='asis', echo=FALSE}
+
+if (length(params$importance_plots)==1) {
+  
+     tagList(params$importance_plots[[1]])
+
+  } else {
+  
+  for(h in 1:length(params$importance_plots)){
+  library(shiny)
+  cat("###", as.character(params$algorithm_names[[h]]), '<br>', '\n')
+  print(tagList(params$importance_plots[[h]]))
+  cat('\n', '<br>', '\n\n')
+  
+}
+  
+}
+
+```
+
+##
+ 
+The knowledge gained from this was expanded by including a <b> local interpretation indicator </b> - the associated <b> SHAPLEY values </b> -. <b> `r params$shapley_case1`</b> and <b> `r params$shapley_case2` </b> were selected as illustrative cases to illustrate the influence of the variables on the corresponding prognostic value:
+
+
+## {.tabset .tabset-pills}
+
+```{r, results='asis', echo=FALSE}
+
+if (length(params$model_plots1)==1) {
+  
+     tagList(column(width=6,params$model_plots1[[1]]),column(width=6,params$model_plots2[[1]]))
+
+  
+  } else {
+  
+  for(h in 1:length(params$shapley_plots1)){
+  library(shiny)
+  cat("###", as.character(params$algorithm_names[[h]]), '<br>', '\n')
+  print(tagList(column(width=6,params$shapley_plots1[[h]]),column(width=6,params$shapley_plots2[[h]])))
+  cat('\n', '<br>', '\n\n')
+}
+  
+}
+
+```
+
+##
+
+#### 5.3 Preferred Model
+
+After careful consideration of all models regarding accuracy and interpretability, the model <b> `r params$model_final` </b> was chosen. It had an average <b> `r params$final_kpi1_name` value</b> of <b> `r params$final_kpi1_value` </b> and a <b> `r params$final_kpi2_name` value</b> of <b> `r params$final_kpi2_value` </b>.
+
+</b> 
+
+`r params$decision_comment`
+
