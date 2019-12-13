@@ -1,11 +1,11 @@
 # Dokumentation - Modeling Toolkit
 
-## Hintergrund und Einleitung
+### 1. Hintergrund und Einleitung
 
 Das Modeling Toolkit soll als ganzheitliche Machine Learning Lösung dienen, welche sowohl visuelle Analyse- als auch Modellierungs-Funktionalitäten in einer bedienerfreundlichen App integriert. Die bereitgestellten Funktionalitäten sollen dabei eine strukturierte Vorgehensweise für die Modellierung von Sachverhalten ermöglichen. Hintergrund und Hauptanspruch des Toolkits liegt vor allem in der Demokratisierung von Machine-Learning-Methoden durch Bereitstellung eines intuitiven Benutzeroberfläche und soll nicht mit
 State-of-the-Art Verfahren im Bereich Supervised / Deep Learning konkurrieren.
 
-## Vorabüberlegungen
+## 2. Vorabüberlegungen
 
 Vor Verwendung der Applikation sollten zunächst Absicht und erste Hypothesen der Modellierung bedacht und formuliert werden. Folgende Fragen können hierbei als Gedankenstütze herangezogen werden:
 
